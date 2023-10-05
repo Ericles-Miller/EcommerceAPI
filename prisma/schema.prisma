@@ -1,0 +1,128 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id            String          @id @default(uuid()) @map("_id")
+  name          String
+  email         String          @unique
+  password      String
+  createdAt     DateTime        @default(now())
+  avatar        String
+  addressId     String
+  address       Address         @relation(fields: [addressId], references: [id])
+  ShoppingCarts ShoppingCarts[]
+
+  @@map("users")
+}
+
+model Address {
+  id           String   @id @default(uuid()) @map("_id")
+  street       String
+  number       String
+  cep          Int
+  city         String
+  neighborhood String
+  complement   String
+  statesId     String
+  states       States   @relation(fields: [statesId], references: [id])
+  Owner        Owners[]
+  Users        Users[]
+  Orders       Orders[]
+
+  @@map("address")
+}
+
+model States {
+  id      String    @id @default(uuid()) @map("_id")
+  name    String
+  country String
+  Address Address[]
+
+  @@map("states")
+}
+
+model Owners {
+  id         String     @id @default(uuid()) @map("_id")
+  name       String
+  createdAt  DateTime   @default(now())
+  cnpj       Int
+  addressId  String
+  address    Address    @relation(fields: [addressId], references: [id])
+  reputation Float
+  avatar     String
+  Products   Products[]
+
+  @@map("owner")
+}
+
+model Categories {
+  id          String     @id @default(uuid()) @map("_id")
+  name        String
+  description String
+  Products    Products[]
+
+  @@map("categories")
+}
+
+model Products {
+  id          String   @id @default(uuid()) @map("_id")
+  name        String
+  description String
+  price       Float
+  avatar      String
+  stock       Int
+  createdAt   DateTime @default(now())
+  ownerId     String
+  owners      Owners   @relation(fields: [ownerId], references: [id])
+
+  categoryId String
+  categories Categories  @relation(fields: [categoryId], references: [id])
+  ItemOrdes  ItemOrdes[]
+
+  @@map("products")
+}
+
+model ItemOrdes {
+  id        String   @id @default(uuid()) @map("_id")
+  productId String
+  amount    Int
+  products  Products @relation(fields: [productId], references: [id])
+  orderId   String
+
+  ShoppingCarts ShoppingCarts[]
+
+  @@map("itemOrders")
+}
+
+model Orders {
+  id             String        @id @default(uuid()) @map("_id")
+  createdAt      DateTime      @default(now())
+  deliveryDate   DateTime
+  status         Boolean       @default(false)
+  itemOrderId    String
+  shoppingCartId String
+
+  addressId String
+  address   Address @relation(fields: [addressId], references: [id])
+
+  @@map("orders")
+}
+
+model ShoppingCarts {
+  id           String    @id @default(uuid()) @map("_id")
+  userId       String
+  users        Users     @relation(fields: [userId], references: [id])
+  itensOrderId String
+  itemsOrders  ItemOrdes @relation(fields: [itensOrderId], references: [id])
+
+  @@map("shoppinCart")
+}
