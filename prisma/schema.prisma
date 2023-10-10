@@ -16,7 +16,7 @@ model Users {
   email         String          @unique
   password      String
   createdAt     DateTime        @default(now())
-  avatar        String
+  avatar        String?
   addressId     String
   address       Address         @relation(fields: [addressId], references: [id])
   ShoppingCarts ShoppingCarts[]
@@ -104,10 +104,10 @@ model ItemOrdes {
 }
 
 model Orders {
-  id             String        @id @default(uuid()) @map("_id")
-  createdAt      DateTime      @default(now())
+  id             String   @id @default(uuid()) @map("_id")
+  createdAt      DateTime @default(now())
   deliveryDate   DateTime
-  status         Boolean       @default(false)
+  status         Boolean  @default(false)
   itemOrderId    String
   shoppingCartId String
 

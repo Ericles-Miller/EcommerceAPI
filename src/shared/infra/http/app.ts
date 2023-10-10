@@ -1,6 +1,6 @@
+import 'reflect-metadata';
 import express from "express";
 import { router } from "./routers";
-import 'reflect-metadata';
 
 
 export const app = express();

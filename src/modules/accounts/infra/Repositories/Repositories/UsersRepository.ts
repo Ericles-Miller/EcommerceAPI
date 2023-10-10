@@ -6,8 +6,12 @@ import { IUsersRepository } from "../IUsersRepositories";
 export class UsersRepository implements IUsersRepository {
   private repository = new PrismaClient().users;
   
-  create(data: IRequestDTO): Promise<void> {
-    throw new Error("Method not implemented.");
+  async create({email,password,name, avatar}: IRequestDTO): Promise<void> {
+    await this.repository.create({
+      data: {
+        name, password,email,avatar
+      }
+    })
   }
 
 }
