@@ -8,5 +8,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: docker
       MONGO_INITDB_ROOT_PASSWORD: 18er0821
+      MONGO_INITDB_DATABASE: eccomerce
+      MONGO_REPLICA_HOST: localhost
+      MONGO_REPLICA_PORT: 27017
     volumes:
       - './data:/data/db'

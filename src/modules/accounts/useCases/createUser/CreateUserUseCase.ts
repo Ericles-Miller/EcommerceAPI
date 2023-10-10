@@ -10,7 +10,8 @@ export class CreateUserUseCase {
     private usersRepository: IUsersRepository
   ) {}
 
-  async execute({email,name,password}: IRequestDTO) : Promise<void> {
-    
+  async execute({email,name,password,avatar}: IRequestDTO) : Promise<void> {
+    await this.usersRepository.create({name, email, password, avatar});
+
   }
 }

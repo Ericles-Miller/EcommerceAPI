@@ -16,9 +16,9 @@ model Users {
   email         String          @unique
   password      String
   createdAt     DateTime        @default(now())
-  avatar        String
-  addressId     String
-  address       Address         @relation(fields: [addressId], references: [id])
+  avatar        String?
+  // addressId     String
+  // address       Address         @relation(fields: [addressId], references: [id])
   ShoppingCarts ShoppingCarts[]
 
   @@map("users")
@@ -35,7 +35,7 @@ model Address {
   statesId     String
   states       States   @relation(fields: [statesId], references: [id])
   Owner        Owners[]
-  Users        Users[]
+  //Users        Users[]
   Orders       Orders[]
 
   @@map("address")
@@ -104,10 +104,10 @@ model ItemOrdes {
 }
 
 model Orders {
-  id             String        @id @default(uuid()) @map("_id")
-  createdAt      DateTime      @default(now())
+  id             String   @id @default(uuid()) @map("_id")
+  createdAt      DateTime @default(now())
   deliveryDate   DateTime
-  status         Boolean       @default(false)
+  status         Boolean  @default(false)
   itemOrderId    String
   shoppingCartId String
 
