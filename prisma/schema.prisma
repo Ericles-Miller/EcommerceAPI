@@ -17,8 +17,8 @@ model Users {
   password      String
   createdAt     DateTime        @default(now())
   avatar        String?
-  // addressId     String
-  // address       Address         @relation(fields: [addressId], references: [id])
+  addressId     String
+  address       Address         @relation(fields: [addressId], references: [id])
   ShoppingCarts ShoppingCarts[]
 
   @@map("users")
@@ -35,7 +35,7 @@ model Address {
   statesId     String
   states       States   @relation(fields: [statesId], references: [id])
   Owner        Owners[]
-  //Users        Users[]
+  Users        Users[]
   Orders       Orders[]
 
   @@map("address")
