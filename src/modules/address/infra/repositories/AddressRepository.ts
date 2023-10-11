@@ -1,16 +1,7 @@
 import { Address, PrismaClient, States } from "@prisma/client";
 
+import { IRequestAddressDTO } from "./DTOs/IRequestAddressDTO";
 import { IAddressRepository } from "./IRepositories/IAddressRepository";
-
-export interface IRequestAddressDTO {
-  street: string;
-  cep: number;
-  number: string;
-  complement: string;
-  city: string;
-  neighborhood: string;
-  statesId: string;
-}
 
 export class AddressRepository implements IAddressRepository {
   private repository = new PrismaClient();
