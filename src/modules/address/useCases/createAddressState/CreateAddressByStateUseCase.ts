@@ -1,8 +1,6 @@
-import { AddressRepository } from "@modules/address/infra/reposiotries/AddressRepository";
-import { IAddressRepository } from "@modules/address/infra/reposiotries/IRepositories/IAddressRepository";
-import { AppError } from "@shared/error/AppError";
+import { AddressRepository } from "@modules/address/infra/repositories/AddressRepository";
+import { IAddressRepository } from "@modules/address/infra/repositories/IRepositories/IAddressRepository";
 import { inject, injectable } from "tsyringe";
-
 
 @injectable()
 export class CreateAddressByStateUseCase {
@@ -11,8 +9,7 @@ export class CreateAddressByStateUseCase {
     private addressRepository: IAddressRepository,
   ) {}
 
-  async execute(name: string, country: string) : Promise<void> {
-
+  async execute(name: string, country: string): Promise<void> {
     await this.addressRepository.createStateAddress(name, country);
   }
 }
