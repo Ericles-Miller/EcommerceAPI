@@ -37,8 +37,14 @@ export class AddressRepository implements IAddressRepository {
     });
   }
 
-  listAddressByUser(userId: string): Promise<Address> {
-    throw new Error("Method not implemented.");
+  async listAddressById(id: string): Promise<Address | null> {
+    const address = await this.repository.address.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    return address;
   }
 
   async listStateByName(name: string): Promise<States | null> {

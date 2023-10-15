@@ -13,6 +13,6 @@ export interface IAddressRepository {
     street,
   }: IRequestAddressDTO): Promise<void>;
   createStateAddress(name: string, country: string): Promise<void>;
-  listAddressByUser(userId: string): Promise<Address>;
+  listAddressById(addressId: string): Promise<Address | null>;
   listStateByName(name: string): Promise<States | null>;
 }
