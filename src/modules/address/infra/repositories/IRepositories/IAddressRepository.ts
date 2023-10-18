@@ -1,6 +1,6 @@
 import { Address, States } from "@prisma/client";
 
-import { IRequestAddressDTO } from "../DTOs/IRequestAddressDTO";
+import { IRequestAddressDTO } from "../../DTOs/IRequestAddressDTO";
 
 export interface IAddressRepository {
   createAddress({

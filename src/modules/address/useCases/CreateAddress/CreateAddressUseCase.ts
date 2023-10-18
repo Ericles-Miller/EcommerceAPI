@@ -1,5 +1,5 @@
 import { AddressRepository } from "@modules/address/infra/repositories/AddressRepository";
-import { IRequestAddressDTO } from "@modules/address/infra/repositories/DTOs/IRequestAddressDTO";
+import { IRequestAddressDTO } from "@modules/address/infra/DTOs/IRequestAddressDTO";
 import { IAddressRepository } from "@modules/address/infra/repositories/IRepositories/IAddressRepository";
 import { inject, injectable } from "tsyringe";
 

@@ -3,5 +3,5 @@ export interface IRequestCreateUserDTO {
   email: string;
   password: string;
   addressId: string;
-  createdAt: Date;
+  createdAt?: Date;
 }

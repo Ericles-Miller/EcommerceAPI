@@ -25,6 +25,11 @@ export class CreateUserUseCase {
     password,
     addressId,
   }: IRequestCreateUserDTO): Promise<void> {
+    const user = await this.usersRepository.listUserByEmail(email);
+    if (user) {
+      throw new AppError("Email user already exists!");
+    }
+
     const address = await this.addressRepository.listAddressById(addressId);
     if (!address) {
       throw new AppError("addressId does not exists");
