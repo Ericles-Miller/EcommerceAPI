@@ -1,6 +1,7 @@
-export interface IRequestDTO {
+export interface IRequestCreateUserDTO {
   name: string;
   email: string;
   password: string;
-  avatar: string;
+  addressId: string;
+  createdAt?: Date;
 }
