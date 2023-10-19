@@ -30,6 +30,11 @@ export class UsersRepository implements IUsersRepository {
     return user;
   }
 
+  async list(): Promise<Users[]> {
+    const users = await this.repository.findMany();
+    return users;
+  }
+
   async listUserByEmail(email: string): Promise<Users | null> {
     const user = await this.repository.findUnique({
       where: {
