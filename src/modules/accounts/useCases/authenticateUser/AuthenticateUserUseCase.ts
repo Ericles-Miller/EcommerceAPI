@@ -1,9 +1,10 @@
 import { IUsersRepository } from "@modules/accounts/infra/Repositories/IUsersRepositories";
 import { UsersRepository } from "@modules/accounts/infra/Repositories/Repositories/UsersRepository";
-import { AppError } from "@shared/error/AppError";
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
+
+import { AppError } from "@shared/errors/AppError";
 
 interface IResponse {
   user: {

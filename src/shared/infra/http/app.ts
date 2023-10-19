@@ -1,15 +1,16 @@
 import "reflect-metadata";
-
 import express, { NextFunction, Request, Response } from "express";
+import "express-async-errors";
 
-import { AppError } from "@shared/error/AppError";
+import { AppError } from "@shared/errors/AppError";
 
 import { router } from "./routers";
+
+import "@shared/container";
 
 export const app = express();
 app.use(express.json());
 
-/* middle error */
 app.use(
   (err: Error, request: Request, response: Response, next: NextFunction) => {
     if (err instanceof AppError) {

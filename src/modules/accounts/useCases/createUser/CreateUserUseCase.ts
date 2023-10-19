@@ -3,7 +3,7 @@ import { IAddressRepository } from "@modules/address/infra/repositories/IReposit
 import { hash } from "bcryptjs";
 import { inject, injectable } from "tsyringe";
 
-import { AppError } from "@shared/error/AppError";
+import { AppError } from "@shared/errors/AppError";
 
 import { IRequestCreateUserDTO } from "../../infra/DTOs/IRequestDTO";
 import { IUsersRepository } from "../../infra/Repositories/IUsersRepositories";
