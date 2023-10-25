@@ -8,7 +8,6 @@ import { inject, injectable } from "tsyringe";
 
 import { AppError } from "@shared/errors/AppError";
 
-
 @injectable()
 export class CreateOwnerUseCase {
   constructor(
@@ -25,10 +24,21 @@ export class CreateOwnerUseCase {
     name,
     password,
     reputation,
+    email,
   }: ICreatedOwnerDTO): Promise<void> {
+
+    
+
+
+
     const owner = await this.ownerRepository.listOwnerByCnpj(cnpj);
     if (owner) {
-      throw new AppError("Email user already exists!");
+      throw new AppError("cnpj owner already exists!");
+    }
+
+    const ownerEmail = await this.ownerRepository.listOwnerByEmail(email);
+    if (ownerEmail) {
+      throw new AppError("email owner already exists!");
     }
 
     const address = await this.addressRepository.listAddressById(addressId);
@@ -44,6 +54,7 @@ export class CreateOwnerUseCase {
       name,
       password: passwordHash,
       reputation,
+      email,
     });
   }
 }

@@ -5,7 +5,7 @@ import { CreateOwnerUseCase } from "./CreateOwnerUseCase";
 
 export class CreateOwnerController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { name, cnpj, addressId, password, reputation } = request.body;
+    const { name, email, cnpj, addressId, password, reputation } = request.body;
 
     const createOwnerUseCase = container.resolve(CreateOwnerUseCase);
 
@@ -15,6 +15,7 @@ export class CreateOwnerController {
       addressId,
       password,
       reputation,
+      email,
     });
 
     return response.status(201).send();

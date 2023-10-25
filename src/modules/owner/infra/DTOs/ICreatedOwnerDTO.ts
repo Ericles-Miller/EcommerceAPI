@@ -4,4 +4,5 @@ export interface ICreatedOwnerDTO {
   addressId: string;
   password: string;
   reputation: number;
+  email: string;
 }

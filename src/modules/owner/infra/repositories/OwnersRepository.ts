@@ -12,6 +12,7 @@ export class OwnerRepository implements IOwnerRepository {
     name,
     password,
     reputation,
+    email,
   }: ICreatedOwnerDTO): Promise<void> {
     await this.repository.create({
       data: {
@@ -20,6 +21,7 @@ export class OwnerRepository implements IOwnerRepository {
         reputation,
         addressId,
         password,
+        email,
       },
     });
   }
@@ -35,6 +37,15 @@ export class OwnerRepository implements IOwnerRepository {
       },
     });
 
+    return owner;
+  }
+
+  async listOwnerByEmail(email: string): Promise<Owners | null> {
+    const owner = await this.repository.findUnique({
+      where: {
+        email,
+      },
+    });
     return owner;
   }
 }

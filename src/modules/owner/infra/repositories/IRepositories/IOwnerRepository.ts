@@ -6,4 +6,5 @@ export interface IOwnerRepository {
   create(data: ICreatedOwnerDTO): Promise<void>;
   list(): Promise<Owners[]>;
   listOwnerByCnpj(cnpj: number): Promise<Owners | null>;
+  listOwnerByEmail(email: string): Promise<Owners | null>;
 }
