@@ -26,11 +26,6 @@ export class CreateOwnerUseCase {
     reputation,
     email,
   }: ICreatedOwnerDTO): Promise<void> {
-
-    
-
-
-
     const owner = await this.ownerRepository.listOwnerByCnpj(cnpj);
     if (owner) {
       throw new AppError("cnpj owner already exists!");

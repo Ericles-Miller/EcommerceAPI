@@ -43,7 +43,7 @@ model Address {
 
 model States {
   id      String    @id @default(uuid()) @map("_id")
-  name    String
+  name    String    
   country String
   Address Address[]
 
