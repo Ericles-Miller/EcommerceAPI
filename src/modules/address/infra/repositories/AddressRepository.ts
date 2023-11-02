@@ -1,19 +1,10 @@
 import { Address, PrismaClient, States } from "@prisma/client";
 
-import { IRequestAddressDTO } from "../DTOs/IRequestAddressDTO";
+import { IRequestRepositoryAddressDTO } from "../DTOs/IRequestAddressRepositoryDTO";
 import { IAddressRepository } from "./IRepositories/IAddressRepository";
 
 export class AddressRepository implements IAddressRepository {
   private repository = new PrismaClient();
-
-  async createStateAddress(name: string, country: string): Promise<void> {
-    await this.repository.states.create({
-      data: {
-        name,
-        country,
-      },
-    });
-  }
 
   async createAddress({
     cep,
@@ -21,9 +12,9 @@ export class AddressRepository implements IAddressRepository {
     complement,
     neighborhood,
     number,
-    statesId,
+    stateId,
     street,
-  }: IRequestAddressDTO): Promise<void> {
+  }: IRequestRepositoryAddressDTO): Promise<void> {
     await this.repository.address.create({
       data: {
         city,
@@ -32,7 +23,7 @@ export class AddressRepository implements IAddressRepository {
         neighborhood,
         number,
         street,
-        statesId,
+        stateId,
       },
     });
   }

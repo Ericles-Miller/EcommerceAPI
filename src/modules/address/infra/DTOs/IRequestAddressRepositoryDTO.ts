@@ -1,9 +1,9 @@
-export interface IRequestAddressDTO {
+export interface IRequestRepositoryAddressDTO {
   street: string;
   cep: number;
   number: string;
   complement: string;
   city: string;
   neighborhood: string;
-  stateName: string;
+  stateId: string;
 }
