@@ -10,6 +10,7 @@ const states = [
   { name: "Amazonas" },
   { name: "Bahia" },
   { name: "Ceará" },
+  { name: "Distrito Federal" },
   { name: "Espírito Santo" },
   { name: "Goiás" },
   { name: "Maranhão" },
@@ -25,23 +26,18 @@ const states = [
   { name: "Rio Grande do Norte" },
   { name: "Rio Grande do Sul" },
   { name: "Rondônia" },
-  { name: "Rio de Janeiro" },
-  { name: "Rio Grande do Norte" },
-  { name: "Rio Grande do Sul" },
-  { name: "Rondônia" },
   { name: "Roraima" },
   { name: "Santa Catarina" },
   { name: "São Paulo" },
   { name: "Sergipe" },
   { name: "Tocantins" },
-  { name: "Distrito Federal" },
 ];
 
 async function createSeedStates() {
   states.map(async (state) => {
     await prisma.create({
       data: {
-        country: "brasil",
+        country: "Brasil",
         name: state.name,
         id: uuid(),
       },
