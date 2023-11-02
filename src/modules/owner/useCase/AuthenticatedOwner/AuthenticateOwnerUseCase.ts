@@ -23,11 +23,15 @@ export class AuthenticateOwnerUseCase {
 
   async execute(email: string, password: string): Promise<IResponse> {
     const owner = await this.ownerRepository.listOwnerByEmail(email);
+    console.log(owner);
+
     if (!owner) {
       throw new AppError("password or email incorrect!");
     }
 
     const passwordMatch = await compare(password, owner.password);
+    console.log(passwordMatch);
+
     if (!passwordMatch) {
       throw new AppError("Email or password incorrect!");
     }

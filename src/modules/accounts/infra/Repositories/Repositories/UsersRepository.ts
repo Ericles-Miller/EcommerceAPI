@@ -36,7 +36,7 @@ export class UsersRepository implements IUsersRepository {
   }
 
   async listUserByEmail(email: string): Promise<Users | null> {
-    const user = await this.repository.findUnique({
+    const user = await this.repository.findFirst({
       where: {
         email,
       },
