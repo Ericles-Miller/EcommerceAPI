@@ -5,7 +5,7 @@ import { CreateAddressUseCase } from "./CreateAddressUseCase";
 
 export class CreateAddressController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { cep, city, complement, neighborhood, number, statesId, street } =
+    const { cep, city, complement, neighborhood, number, stateName, street } =
       request.body;
 
     const createAddressUseCase = container.resolve(CreateAddressUseCase);
@@ -16,7 +16,7 @@ export class CreateAddressController {
       complement,
       neighborhood,
       number,
-      statesId,
+      stateName,
       street,
     });
 

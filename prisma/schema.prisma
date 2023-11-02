@@ -32,8 +32,8 @@ model Address {
   city         String
   neighborhood String
   complement   String?
-  statesId     String
-  states       States   @relation(fields: [statesId], references: [id])
+  stateId      String
+  states       States   @relation(fields: [stateId], references: [id])
   Owner        Owners[]
   Users        Users[]
   Orders       Orders[]
@@ -43,7 +43,7 @@ model Address {
 
 model States {
   id      String    @id @default(uuid()) @map("_id")
-  name    String    
+  name    String    @unique
   country String
   Address Address[]
 
