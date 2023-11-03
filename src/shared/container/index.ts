@@ -1,5 +1,7 @@
 import { AddressRepository } from "@modules/address/infra/repositories/AddressRepository";
 import { IAddressRepository } from "@modules/address/infra/repositories/IRepositories/IAddressRepository";
+import { CategoriesRepository } from "@modules/categories/infra/Repositories/CategoriesRepository";
+import { ICategoriesRepository } from "@modules/categories/infra/Repositories/IRepositories/ICategoriesRepository";
 import { IOwnerRepository } from "@modules/owner/infra/repositories/IRepositories/IOwnerRepository";
 import { OwnerRepository } from "@modules/owner/infra/repositories/OwnersRepository";
 import { container } from "tsyringe";
@@ -20,4 +22,9 @@ container.registerSingleton<IAddressRepository>(
 container.registerSingleton<IOwnerRepository>(
   "OwnerRepository",
   OwnerRepository,
+);
+
+container.registerSingleton<ICategoriesRepository>(
+  "CategoriesRepository",
+  CategoriesRepository,
 );
