@@ -35,7 +35,7 @@ export class AuthenticateUserUseCase {
     const token = sign({}, "40fe3ccb6f87eb4cf80f3c5dda631e2f", {
       // chave do token
       subject: user.id, // relaciona ao id
-      expiresIn: "1d", // tempo para expirar
+      expiresIn: "5m", // tempo para expirar
     });
 
     const tokenReturn: IResponse = {
