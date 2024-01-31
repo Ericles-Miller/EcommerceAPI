@@ -27,7 +27,7 @@ export class ProductRepository implements IProductRepository {
       },
     });
   }
-  // 
+
   async listProduct(name: string): Promise<Products | null> {
     const product = await this.repository.findFirst({
       where: {

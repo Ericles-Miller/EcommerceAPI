@@ -25,7 +25,7 @@ export class CreateProductUseCase {
     if (product) {
       throw new AppError("product already exists!");
     }
-    // a
+
     await this.productRepository.create({
       avatar,
       name,

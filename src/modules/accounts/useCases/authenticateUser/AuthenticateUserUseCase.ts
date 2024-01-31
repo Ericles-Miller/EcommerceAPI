@@ -41,7 +41,7 @@ export class AuthenticateUserUseCase {
     const tokenReturn: IResponse = {
       token,
       user: {
-        name: email,
+        name: user.name,
         email: user.email,
       },
     };

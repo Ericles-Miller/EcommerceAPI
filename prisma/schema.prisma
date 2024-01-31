@@ -20,6 +20,7 @@ model Users {
   addressId     String
   address       Address         @relation(fields: [addressId], references: [id])
   ShoppingCarts ShoppingCarts[]
+  Orders        Orders[]
 
   @@map("users")
 }
@@ -62,6 +63,7 @@ model Owners {
   Products   Products[]
   password   String
   email      String     @unique
+  Orders     Orders[]
 
   @@map("owner")
 }
@@ -112,6 +114,11 @@ model Orders {
   status         Boolean  @default(false)
   itemOrderId    String
   shoppingCartId String
+  userId         String
+  users          Users    @relation(fields: [userId], references: [id])
+
+  ownerId String
+  owner   Owners @relation(fields: [ownerId], references: [id])
 
   addressId String
   address   Address @relation(fields: [addressId], references: [id])

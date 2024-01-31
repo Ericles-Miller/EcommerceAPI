@@ -1,5 +1,6 @@
 import { UsersRepository } from "@modules/accounts/infra/Repositories/Repositories/UsersRepository";
 import { Request, Response, NextFunction } from "express";
+import { verify } from "jsonwebtoken";
 
 import { verify } from "jsonwebtoken";
 import { AppError } from "@shared/error/AppError";
@@ -36,6 +37,6 @@ export async function ensureAuthenticated(
     }
     next();
   } catch {
-    throw new AppError("Invlid token!", 401);
+    throw new AppError("Invalid token!", 401);
   }
 }
