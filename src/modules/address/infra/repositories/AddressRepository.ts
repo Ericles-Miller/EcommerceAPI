@@ -1,4 +1,4 @@
-import { Address, PrismaClient, States } from "@prisma/client";
+import { Address, PrismaClient, State } from "@prisma/client";
 
 import { IRequestRepositoryAddressDTO } from "../DTOs/IRequestAddressRepositoryDTO";
 import { IAddressRepository } from "./IRepositories/IAddressRepository";
@@ -38,8 +38,8 @@ export class AddressRepository implements IAddressRepository {
     return address;
   }
 
-  async listStateByName(name: string): Promise<States | null> {
-    const state = await this.repository.states.findFirst({
+  async listStateByName(name: string): Promise<State | null> {
+    const state = await this.repository.state.findFirst({
       where: {
         name,
       },

@@ -1,9 +1,13 @@
 import { CreateProductController } from "@modules/Product/useCase/CreateProduct/CreateProductController";
 import { Router } from "express";
-import { ensureAuthenticated } from "middleware/ensureAuthenticate";
+import { ensureAuthenticatedOwner } from "middleware/ensureAuthenticateOwner";
 
 export const productRouter = Router();
 
 const createProductController = new CreateProductController();
 
-productRouter.post("/", ensureAuthenticated, createProductController.handle);
+productRouter.post(
+  "/",
+  ensureAuthenticatedOwner,
+  createProductController.handle,
+);
