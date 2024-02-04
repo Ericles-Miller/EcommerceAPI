@@ -1,4 +1,4 @@
-import { Address, States } from "@prisma/client";
+import { Address, State } from "@prisma/client";
 
 import { IRequestRepositoryAddressDTO } from "../../DTOs/IRequestAddressRepositoryDTO";
 
@@ -13,5 +13,5 @@ export interface IAddressRepository {
     street,
   }: IRequestRepositoryAddressDTO): Promise<void>;
   listAddressById(addressId: string): Promise<Address | null>;
-  listStateByName(name: string): Promise<States | null>;
+  listStateByName(name: string): Promise<State | null>;
 }

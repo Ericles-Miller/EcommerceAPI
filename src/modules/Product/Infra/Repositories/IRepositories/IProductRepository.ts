@@ -1,4 +1,4 @@
-import { Products } from "@prisma/client";
+import { Product } from "@prisma/client";
 
 import { IRequestProductDTO } from "../../Dtos/IRequestProductDTO";
 
@@ -11,5 +11,5 @@ export interface IProductRepository {
     price,
     stock,
   }: IRequestProductDTO): Promise<void>;
-  listProduct(name: string): Promise<Products | null>;
+  listProduct(name: string): Promise<Product | null>;
 }

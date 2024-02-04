@@ -3,7 +3,7 @@ import { verify } from "jsonwebtoken";
 
 import { AppError } from "@shared/errors/AppError";
 
-export async function ensureAuthenticated(
+export async function ensureAuthenticatedOwner(
   request: Request,
   response: Response,
   next: NextFunction,
@@ -14,12 +14,16 @@ export async function ensureAuthenticated(
   }
 
   const [, token] = authToken.split(" ");
-
-  try {
-    // verifico se o token e valido
-    verify(token, "40fe3ccb6f87eb4cf80f3c5dda631e2f"); // chave de criptografia
-    return next();
-  } catch (error) {
-    throw new AppError("Invalid token!", 401);
+  const secretToken = process.env.SECRET_TOKEN_OWNER;
+  if (secretToken) {
+    try {
+      // verifico se o token e valido
+      verify(token, secretToken); // chave de criptografia
+      return next();
+    } catch (error) {
+      throw new AppError("Invalid token!", 401);
+    }
+  } else {
+    throw new AppError("secret token is missing on file .env", 500);
   }
 }
