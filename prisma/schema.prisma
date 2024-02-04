@@ -1,130 +1,195 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// schema.prisma
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgres"
   url      = env("DATABASE_URL")
 }
 
-model Users {
-  id            String          @id @default(uuid()) @map("_id")
-  name          String
-  email         String          @unique
-  password      String
-  createdAt     DateTime        @default(now())
-  avatar        String?
-  addressId     String
-  address       Address         @relation(fields: [addressId], references: [id])
-  ShoppingCarts ShoppingCarts[]
+model User {
+  id             String           @id @default(uuid())
+  name           String
+  email          String           @unique
+  password       String
+  createdAt      DateTime         @default(now())
+  avatar         String?
+  address        Address          @relation(fields: [addressId], references: [id])
+  orders         Order[]
+  addressId      String
+  ShoppingCart   ShoppingCart[]
+  Role           Role[]
+  UserRole       UserRole[]
+  Permisssion    Permisssion[]
+  UserPermission UserPermission[]
 
   @@map("users")
 }
 
 model Address {
-  id           String   @id @default(uuid()) @map("_id")
+  id           String  @id @default(uuid())
   street       String
   number       String
   cep          Int
   city         String
   neighborhood String
   complement   String?
+  state        State   @relation(fields: [stateId], references: [id])
+  owners       Owner[]
+  users        User[]
+  orders       Order[]
   stateId      String
-  states       States   @relation(fields: [stateId], references: [id])
-  Owner        Owners[]
-  Users        Users[]
-  Orders       Orders[]
 
   @@map("address")
 }
 
-model States {
-  id      String    @id @default(uuid()) @map("_id")
-  name    String    @unique
-  country String
-  Address Address[]
+model State {
+  id        String    @id @default(uuid())
+  name      String    @unique
+  country   String
+  addresses Address[]
 
   @@map("states")
 }
 
-model Owners {
-  id         String     @id @default(uuid()) @map("_id")
+model Owner {
+  id         String    @id @default(uuid())
   name       String
-  createdAt  DateTime   @default(now())
+  createdAt  DateTime  @default(now())
   cnpj       Int
   addressId  String
-  address    Address    @relation(fields: [addressId], references: [id])
+  address    Address   @relation(fields: [addressId], references: [id])
   reputation Float
   avatar     String?
-  Products   Products[]
+  products   Product[]
   password   String
-  email      String     @unique
+  email      String    @unique
+  orders     Order[]
 
-  @@map("owner")
+  @@map("owners")
 }
 
-model Categories {
-  id          String     @id @default(uuid()) @map("_id")
+model Category {
+  id          String    @id @default(uuid())
   name        String
   description String
-  Products    Products[]
+  products    Product[]
 
   @@map("categories")
 }
 
-model Products {
-  id          String   @id @default(uuid()) @map("_id")
+model Product {
+  id          String      @id @default(uuid())
   name        String
   description String
   price       Float
   avatar      String
   stock       Int
-  createdAt   DateTime @default(now())
-  ownerId     String
-  owners      Owners   @relation(fields: [ownerId], references: [id])
+  createdAt   DateTime    @default(now())
+  owner       Owner       @relation(fields: [ownerId], references: [id])
+  category    Category    @relation(fields: [categoryId], references: [id])
+  itemOrders  ItemOrder[]
 
+  ownerId    String
   categoryId String
-  categories Categories  @relation(fields: [categoryId], references: [id])
-  ItemOrdes  ItemOrdes[]
 
   @@map("products")
 }
 
-model ItemOrdes {
-  id        String   @id @default(uuid()) @map("_id")
+model ItemOrder {
+  id        String  @id @default(uuid())
   productId String
+  product   Product @relation(fields: [productId], references: [id])
   amount    Int
-  products  Products @relation(fields: [productId], references: [id])
   orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
 
-  ShoppingCarts ShoppingCarts[]
+  shoppingCarts ShoppingCart[]
 
   @@map("itemOrders")
 }
 
-model Orders {
-  id             String   @id @default(uuid()) @map("_id")
-  createdAt      DateTime @default(now())
-  deliveryDate   DateTime
-  status         Boolean  @default(false)
-  itemOrderId    String
-  shoppingCartId String
+model Order {
+  id           String      @id @default(uuid())
+  createdAt    DateTime    @default(now())
+  deliveryDate DateTime
+  status       Boolean     @default(false)
+  itemOrders   ItemOrder[]
+  user         User        @relation(fields: [userId], references: [id])
+  owner        Owner       @relation(fields: [ownerId], references: [id])
+  address      Address     @relation(fields: [addressId], references: [id])
 
+  userId    String
+  ownerId   String
   addressId String
-  address   Address @relation(fields: [addressId], references: [id])
 
   @@map("orders")
 }
 
-model ShoppingCarts {
-  id           String    @id @default(uuid()) @map("_id")
-  userId       String
-  users        Users     @relation(fields: [userId], references: [id])
-  itensOrderId String
-  itemsOrders  ItemOrdes @relation(fields: [itensOrderId], references: [id])
+model ShoppingCart {
+  id         String      @id @default(uuid())
+  user       User        @relation(fields: [userId], references: [id])
+  itemOrders ItemOrder[]
 
-  @@map("shoppinCart")
+  userId String
+
+  @@map("shoppingCarts")
+}
+
+model Role {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  createdAt   DateTime @default(now())
+
+  users           User[]
+  UserRole        UserRole[]
+  permission      Permisssion[]
+  rolesPermission PermisssionRoles[]
+
+  @@map("roles")
+}
+
+model Permisssion {
+  id               String             @id @default(uuid())
+  name             String
+  description      String
+  createdAt        DateTime
+  users            User[]
+  UserPermission   UserPermission[]
+  role             Role[]
+  PermisssionRoles PermisssionRoles[]
+
+  @@map("permission")
+}
+
+model UserPermission {
+  userId       String
+  permissionId String
+
+  user       User        @relation(fields: [userId], references: [id])
+  permission Permisssion @relation(fields: [permissionId], references: [id])
+
+  @@id([userId, permissionId])
+}
+
+model UserRole {
+  userId String
+  roleId String
+  user   User   @relation(fields: [userId], references: [id])
+  role   Role   @relation(fields: [roleId], references: [id])
+
+  @@id([userId, roleId])
+}
+
+model PermisssionRoles {
+  permissionId String
+  roleId      String
+
+  role   Role   @relation(fields: [roleId], references: [id])
+  permission Permisssion @relation(fields: [permissionId], references: [id])
+
+  @@id([permissionId, roleId])
 }

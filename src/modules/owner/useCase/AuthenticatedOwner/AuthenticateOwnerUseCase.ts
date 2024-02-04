@@ -23,28 +23,33 @@ export class AuthenticateOwnerUseCase {
 
   async execute(email: string, password: string): Promise<IResponse> {
     const owner = await this.ownerRepository.listOwnerByEmail(email);
+
     if (!owner) {
       throw new AppError("password or email incorrect!");
     }
 
     const passwordMatch = await compare(password, owner.password);
+
     if (!passwordMatch) {
       throw new AppError("Email or password incorrect!");
     }
+    const secretToken = process.env.SECRET_TOKEN_OWNER;
+    if (secretToken) {
+      const token = sign({}, secretToken, {
+        subject: owner.id,
+        expiresIn: "5m",
+      });
 
-    const token = sign({}, "40fe3ccb6f87eb4cf80f3c5dda631e2f", {
-      subject: owner.id,
-      expiresIn: "5m",
-    });
+      const tokenReturn: IResponse = {
+        token,
+        user: {
+          name: owner.name,
+          email: owner.email,
+        },
+      };
 
-    const tokenReturn: IResponse = {
-      token,
-      user: {
-        name: email,
-        email: owner.email,
-      },
-    };
-
-    return tokenReturn;
+      return tokenReturn;
+    }
+    throw new AppError("secret token is missing!", 504);
   }
 }

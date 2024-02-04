@@ -1,10 +1,10 @@
-import { Owners, PrismaClient } from "@prisma/client";
+import { Owner, PrismaClient } from "@prisma/client";
 
 import { ICreatedOwnerDTO } from "../DTOs/ICreatedOwnerDTO";
 import { IOwnerRepository } from "./IRepositories/IOwnerRepository";
 
 export class OwnerRepository implements IOwnerRepository {
-  private repository = new PrismaClient().owners;
+  private repository = new PrismaClient().owner;
 
   async create({
     addressId,
@@ -26,11 +26,11 @@ export class OwnerRepository implements IOwnerRepository {
     });
   }
 
-  list(): Promise<Owners[]> {
+  list(): Promise<Owner[]> {
     throw new Error("Method not implemented.");
   }
 
-  async listOwnerByCnpj(cnpj: number): Promise<Owners | null> {
+  async listOwnerByCnpj(cnpj: number): Promise<Owner | null> {
     const owner = await this.repository.findFirst({
       where: {
         cnpj,
@@ -40,7 +40,7 @@ export class OwnerRepository implements IOwnerRepository {
     return owner;
   }
 
-  async listOwnerByEmail(email: string): Promise<Owners | null> {
+  async listOwnerByEmail(email: string): Promise<Owner | null> {
     const owner = await this.repository.findUnique({
       where: {
         email,
