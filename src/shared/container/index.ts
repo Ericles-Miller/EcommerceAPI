@@ -8,8 +8,8 @@ import { IProductRepository } from "@modules/Product/Infra/Repositories/IReposit
 import { ProductRepository } from "@modules/Product/Infra/Repositories/ProductsRepository";
 import { container } from "tsyringe";
 
-import { IUsersRepository } from "../../modules/accounts/infra/Repositories/IUsersRepositories";
-import { UsersRepository } from "../../modules/accounts/infra/Repositories/Repositories/UsersRepository";
+import { IUsersRepository } from "../../modules/accounts/infra/Repositories/IRepositories/IUsersRepositories";
+import { UsersRepository } from "../../modules/accounts/infra/Repositories/UsersRepository";
 
 container.registerSingleton<IUsersRepository>(
   "UsersRepository",

@@ -6,8 +6,8 @@ import { inject, injectable } from "tsyringe";
 import { AppError } from "@shared/errors/AppError";
 
 import { IRequestCreateUserDTO } from "../../infra/DTOs/IRequestDTO";
-import { IUsersRepository } from "../../infra/Repositories/IUsersRepositories";
-import { UsersRepository } from "../../infra/Repositories/Repositories/UsersRepository";
+import { IUsersRepository } from "../../infra/Repositories/IRepositories/IUsersRepositories";
+import { UsersRepository } from "../../infra/Repositories/UsersRepository";
 
 @injectable()
 export class CreateUserUseCase {

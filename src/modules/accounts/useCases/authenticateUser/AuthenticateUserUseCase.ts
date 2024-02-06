@@ -1,5 +1,5 @@
-import { IUsersRepository } from "@modules/accounts/infra/Repositories/IUsersRepositories";
-import { UsersRepository } from "@modules/accounts/infra/Repositories/Repositories/UsersRepository";
+import { IUsersRepository } from "@modules/accounts/infra/Repositories/IRepositories/IUsersRepositories";
+import { UsersRepository } from "@modules/accounts/infra/Repositories/UsersRepository";
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
