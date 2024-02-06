@@ -1,6 +1,6 @@
-import { IUsersRepository } from "@modules/accounts/infra/Repositories/IUsersRepositories";
-import { UsersRepository } from "@modules/accounts/infra/Repositories/Repositories/UsersRepository";
-import { Users } from "@prisma/client";
+import { IUsersRepository } from "@modules/accounts/infra/Repositories/IRepositories/IUsersRepositories";
+import { UsersRepository } from "@modules/accounts/infra/Repositories/UsersRepository";
+import { User } from "@prisma/client";
 import { inject, injectable } from "tsyringe";
 
 @injectable()
@@ -10,7 +10,7 @@ export class ListUserUseCase {
     private usersRepository: IUsersRepository,
   ) {}
 
-  async execute(): Promise<Users[]> {
+  async execute(): Promise<User[]> {
     const users = await this.usersRepository.list();
     return users;
   }
