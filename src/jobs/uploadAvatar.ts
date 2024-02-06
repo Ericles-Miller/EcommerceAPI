@@ -1,14 +1,19 @@
 import multer from "multer";
-import resolve from "path";
+import { resolve } from "path";
 
-export function uploadDisplayName() {
-  return {
-    storage: multer.diskStorage({
-      destination: resolve(__dirname, "../../tmp"),
-      filename: (request, file, callback) => {
-        const fileDisplayImg = `${file.originalname}`;
-        return callback(null, fileDisplayImg);
-      },
-    }),
-  };
-}
+export default {
+  upload() {
+    return {
+      storage: multer.diskStorage({
+        destination: (request, callback) => {
+          callback(null, resolve(__dirname, "..", "..", "..", "/tmp"));
+        },
+
+        filename: (request, file, callback) => {
+          const fileName = `${file.originalname}`;
+          return callback(null, fileName);
+        },
+      }),
+    };
+  },
+};
