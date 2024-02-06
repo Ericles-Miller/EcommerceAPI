@@ -4,8 +4,12 @@ import { CategoriesRepository } from "@modules/categories/infra/Repositories/Cat
 import { ICategoriesRepository } from "@modules/categories/infra/Repositories/IRepositories/ICategoriesRepository";
 import { IOwnerRepository } from "@modules/owner/infra/repositories/IRepositories/IOwnerRepository";
 import { OwnerRepository } from "@modules/owner/infra/repositories/OwnersRepository";
+import { IPermissionsRepository } from "@modules/Permissions/infra/repositories/IPermissionsRepository";
+import { PermissionsRepository } from "@modules/Permissions/infra/repositories/PermissionsRepository";
 import { IProductRepository } from "@modules/Product/Infra/Repositories/IRepositories/IProductRepository";
 import { ProductRepository } from "@modules/Product/Infra/Repositories/ProductsRepository";
+import { IRolesRepository } from "@modules/roles/infra/repositories/iRepositories/IRolesRepository";
+import { RolesRepository } from "@modules/roles/infra/repositories/RolesRepository";
 import { container } from "tsyringe";
 
 import { IUsersRepository } from "../../modules/accounts/infra/Repositories/IRepositories/IUsersRepositories";
@@ -34,4 +38,14 @@ container.registerSingleton<ICategoriesRepository>(
 container.registerSingleton<IProductRepository>(
   "ProductRepository",
   ProductRepository,
+);
+
+container.registerSingleton<IRolesRepository>(
+  "RolesRepository",
+  RolesRepository,
+);
+
+container.registerSingleton<IPermissionsRepository>(
+  "PermissionsRepository",
+  PermissionsRepository,
 );

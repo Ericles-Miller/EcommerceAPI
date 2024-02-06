@@ -23,7 +23,7 @@ model User {
   ShoppingCart   ShoppingCart[]
   Role           Role[]
   UserRole       UserRole[]
-  Permisssion    Permisssion[]
+  Permisssion    Permission[]
   UserPermission UserPermission[]
 
   @@map("users")
@@ -147,13 +147,13 @@ model Role {
 
   users           User[]
   UserRole        UserRole[]
-  permission      Permisssion[]
-  rolesPermission PermisssionRoles[]
+  permission      Permission[]
+  rolesPermission PermissionRoles[]
 
   @@map("roles")
 }
 
-model Permisssion {
+model Permission {
   id               String             @id @default(uuid())
   name             String
   description      String
@@ -161,7 +161,7 @@ model Permisssion {
   users            User[]
   UserPermission   UserPermission[]
   role             Role[]
-  PermisssionRoles PermisssionRoles[]
+  PermisssionRoles PermissionRoles[]
 
   @@map("permission")
 }
@@ -171,7 +171,7 @@ model UserPermission {
   permissionId String
 
   user       User        @relation(fields: [userId], references: [id])
-  permission Permisssion @relation(fields: [permissionId], references: [id])
+  permission Permission @relation(fields: [permissionId], references: [id])
 
   @@id([userId, permissionId])
 }
@@ -185,12 +185,12 @@ model UserRole {
   @@id([userId, roleId])
 }
 
-model PermisssionRoles {
+model PermissionRoles {
   permissionId String
   roleId       String
 
-  role       Role        @relation(fields: [roleId], references: [id])
-  permission Permisssion @relation(fields: [permissionId], references: [id])
+  role   Role   @relation(fields: [roleId], references: [id])
+  permission Permission @relation(fields: [permissionId], references: [id])
 
   @@id([permissionId, roleId])
 }
