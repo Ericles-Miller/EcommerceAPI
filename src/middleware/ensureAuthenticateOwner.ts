@@ -17,8 +17,7 @@ export async function ensureAuthenticatedOwner(
   const secretToken = process.env.SECRET_TOKEN_OWNER;
   if (secretToken) {
     try {
-      // verifico se o token e valido
-      verify(token, secretToken); // chave de criptografia
+      verify(token, secretToken);
       return next();
     } catch (error) {
       throw new AppError("Invalid token!", 401);
