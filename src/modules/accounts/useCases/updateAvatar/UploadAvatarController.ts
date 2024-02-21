@@ -9,8 +9,9 @@ export class UpdateAvatarController {
   async handle(request: Request, response: Response): Promise<Response> {
     const updateAvatarUseCase = container.resolve(UpdateAvatarUseCase);
     const { id } = request.params;
-    const { displayImgs } = request.files as Record<string, MulterFile>;
-    if (!displayImgs) {
+    const { avatar } = request.files;
+
+    if (!avatar) {
       throw new AppError("Image File is missing!");
     }
     const avatarString = "";
@@ -18,6 +19,6 @@ export class UpdateAvatarController {
 
     return response
       .status(201)
-      .json({ message: "UPdate Avatar is completed!" });
+      .json({ message: "Update Avatar is completed!" });
   }
 }
