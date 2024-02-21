@@ -14,7 +14,9 @@ export class UpdateAvatarController {
     if (!avatar) {
       throw new AppError("Image File is missing!");
     }
-    const avatarString = "";
+
+    const avatarString = displayImgs[0].path;
+
     await updateAvatarUseCase.execute(id, avatarString);
 
     return response
