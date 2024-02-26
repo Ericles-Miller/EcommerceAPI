@@ -10,21 +10,19 @@ datasource db {
 }
 
 model User {
-  id             String           @id @default(uuid())
-  name           String
-  email          String           @unique
-  password       String
-  active         Boolean          @default(true)
-  createdAt      DateTime         @default(now())
-  avatar         String?
-  address        Address          @relation(fields: [addressId], references: [id])
-  orders         Order[]
-  addressId      String
-  ShoppingCart   ShoppingCart[]
-  Role           Role[]
-  UserRole       UserRole[]
-  Permisssion    Permission[]
-  UserPermission UserPermission[]
+  id           String         @id @default(uuid())
+  name         String
+  email        String         @unique
+  password     String
+  active       Boolean        @default(true)
+  createdAt    DateTime       @default(now())
+  avatar       String?
+  address      Address        @relation(fields: [addressId], references: [id])
+  orders       Order[]
+  addressId    String
+  ShoppingCart ShoppingCart[]
+  roles        String[]    @default([])
+  permissions  String[]    @default([]) 
 
   @@map("users")
 }
@@ -144,53 +142,17 @@ model Role {
   name        String
   description String
   createdAt   DateTime @default(now())
-
-  users           User[]
-  UserRole        UserRole[]
-  permission      Permission[]
-  rolesPermission PermissionRoles[]
+  userId      String?
 
   @@map("roles")
 }
 
 model Permission {
-  id               String             @id @default(uuid())
-  name             String
-  description      String
-  createdAt        DateTime
-  users            User[]
-  UserPermission   UserPermission[]
-  role             Role[]
-  PermisssionRoles PermissionRoles[]
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  createdAt   DateTime @default(now())
+  userId      String?
 
   @@map("permission")
-}
-
-model UserPermission {
-  userId       String
-  permissionId String
-
-  user       User        @relation(fields: [userId], references: [id])
-  permission Permission @relation(fields: [permissionId], references: [id])
-
-  @@id([userId, permissionId])
-}
-
-model UserRole {
-  userId String
-  roleId String
-  user   User   @relation(fields: [userId], references: [id])
-  role   Role   @relation(fields: [roleId], references: [id])
-
-  @@id([userId, roleId])
-}
-
-model PermissionRoles {
-  permissionId String
-  roleId       String
-
-  role   Role   @relation(fields: [roleId], references: [id])
-  permission Permission @relation(fields: [permissionId], references: [id])
-
-  @@id([permissionId, roleId])
 }
