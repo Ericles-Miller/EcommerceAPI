@@ -7,15 +7,16 @@ import { UpdateAvatarUseCase } from "./UpdateAvatarUseCase";
 
 export class UpdateAvatarController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const updateAvatarUseCase = container.resolve(UpdateAvatarUseCase);
     const { id } = request.params;
-    const { avatar } = request.files;
+    const { path } = request.file;
 
-    if (!avatar) {
+    const updateAvatarUseCase = container.resolve(UpdateAvatarUseCase);
+
+    if (!path) {
       throw new AppError("Image File is missing!");
     }
 
-    const avatarString = displayImgs[0].path;
+    const avatarString = path;
 
     await updateAvatarUseCase.execute(id, avatarString);
 

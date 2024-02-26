@@ -10,6 +10,8 @@ export default {
         },
         filename: (request, file, callback) => {
           const fileName = `${file.originalname}`;
+          console.log("File Name:", fileName);
+
           return callback(null, fileName);
         },
       }),
