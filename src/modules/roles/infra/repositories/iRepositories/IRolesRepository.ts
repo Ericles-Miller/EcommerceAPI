@@ -5,6 +5,6 @@ import { RoleRequest } from "../../types/RoleRequest";
 export interface IRolesRepository {
   create({ description, name }: RoleRequest): Promise<void>;
   listRoles(): Promise<Role[]>;
-  listRoleByName(name: string): Promise<Role>;
+  listRoleByName(name: string): Promise<Role | null>;
   findRolesByIds(roles: string[]): Promise<Role[]>;
 }

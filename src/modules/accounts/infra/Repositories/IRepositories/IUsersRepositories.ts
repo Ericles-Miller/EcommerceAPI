@@ -1,7 +1,10 @@
 import { User } from "@prisma/client";
 
 import { IRequestCreateUserDTO } from "../../DTOs/IRequestDTO";
-import { IUpdateUserDTO } from "../../DTOs/IUpdateUserDTO";
+import {
+  IUpdateRolesAndPermissions,
+  IUpdateUserDTO,
+} from "../../DTOs/IUpdateUserDTO";
 
 export interface IUsersRepository {
   create(data: IRequestCreateUserDTO): Promise<void>;
@@ -11,4 +14,9 @@ export interface IUsersRepository {
   updateUser(data: IUpdateUserDTO): Promise<void>;
   disableEnableUser(id: string, option: boolean): Promise<void>;
   updateAvatar(avatar: string, id: string): Promise<void>;
+  updateRolesAndPermissions({
+    id,
+    permissions,
+    roles,
+  }: IUpdateRolesAndPermissions): Promise<void>;
 }

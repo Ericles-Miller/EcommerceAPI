@@ -38,14 +38,26 @@ export class CreateAccessControlListUseCase {
     const permissionsExists =
       await this.permissionsRepository.findPermissionsByIds(permissions);
     if (permissionsExists.length === 0) {
-      throw new AppError("don't exists permissions with id");
+      throw new AppError("don't exists permissions with  providers ids");
     }
 
     const rolesExists = await this.rolesRepository.findRolesByIds(roles);
     if (rolesExists.length === 0) {
-      throw new AppError("don't exists permissions with id");
+      throw new AppError("don't exists permissions with providers ids");
     }
 
-    
+    const commonPermissionsIds = permissionsExists
+      .filter((permission) => permissions.includes(permission.id))
+      .map((permission) => permission.id);
+
+    const commonRoleIds = rolesExists
+      .filter((role) => roles.includes(role.id))
+      .map((role) => role.id);
+
+    await this.usersRepository.updateRolesAndPermissions({
+      id: userId,
+      permissions: commonPermissionsIds,
+      roles: commonRoleIds,
+    });
   }
 }

@@ -1,7 +1,10 @@
 import { PrismaClient, User } from "@prisma/client";
 
 import { IRequestCreateUserDTO } from "../DTOs/IRequestDTO";
-import { IUpdateUserDTO } from "../DTOs/IUpdateUserDTO";
+import {
+  IUpdateRolesAndPermissions,
+  IUpdateUserDTO,
+} from "../DTOs/IUpdateUserDTO";
 import { IUsersRepository } from "./IRepositories/IUsersRepositories";
 
 export class UsersRepository implements IUsersRepository {
@@ -69,6 +72,22 @@ export class UsersRepository implements IUsersRepository {
       where: { id },
       data: {
         avatar,
+      },
+    });
+  }
+
+  async updateRolesAndPermissions({
+    id,
+    permissions,
+    roles,
+  }: IUpdateRolesAndPermissions): Promise<void> {
+    await this.repository.update({
+      where: {
+        id,
+      },
+      data: {
+        permissions,
+        roles,
       },
     });
   }

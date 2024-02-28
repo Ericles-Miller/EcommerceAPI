@@ -32,4 +32,14 @@ export class PermissionsRepository implements IPermissionsRepository {
 
     return permission;
   }
+
+  async findPermissionsByIds(permissions: string[]): Promise<Permission[]> {
+    const foundPermissions = await this.repository.findMany({
+      where: {
+        id: { in: permissions },
+      },
+    });
+
+    return foundPermissions;
+  }
 }
