@@ -14,12 +14,23 @@ export class RolesRepository implements IRolesRepository {
       },
     });
   }
+
+  async findRolesByIds(roles: string[]): Promise<Role[]> {
+    const foundRoles = await this.repository.findMany({
+      where: {
+        id: { in: roles },
+      },
+    });
+
+    return foundRoles;
+  }
+
   async listRoles(): Promise<Role[]> {
     const roles = await this.repository.findMany();
     return roles;
   }
 
-  async listRoleByName(name: string): Promise<Role> {
+  async listRoleByName(name: string): Promise<Role | null> {
     const role = await this.repository.findFirst({
       where: {
         name,

@@ -1,4 +1,4 @@
-import { CreatePermissionController } from "@modules/Permissions/Usecase/CreatePermissions/CreatePermissionController";
+import { CreatePermissionController } from "@modules/Permissions/UseCase/CreatePermissions/CreatePermissionController";
 import { Router } from "express";
 
 export const permissionsRouters = Router();
